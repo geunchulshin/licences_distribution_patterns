@@ -12,6 +12,7 @@ o `input/data` Includes the data sources utilized in the analysis: raw data and 
 
 o `outputs/paper` Includes the Quarto document, reference bibliography file and the rendered
 PDF.
+
 o `scripts` Includes the R scripts utilized for data simulation, downloading and cleaning.
 
 ## How to Run
