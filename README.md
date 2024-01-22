@@ -1,0 +1,1 @@
+# licences_distribution_patterns
