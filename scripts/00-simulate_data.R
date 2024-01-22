@@ -39,5 +39,17 @@ simulated_data <- data.frame(
 # the simulated dataset
 head(simulated_data)
 
+## Data tests
 
+# check if the issued year is in between 2015-2022 (inclusive)
+simulated_data |>
+  filter(Issued_Year < 2015 | Issued_Year>2022) |>
+  count() |>
+  sum() == 0
 
+# check if the categorie is not consisted with a single kind
+length(unique(simulated_data$Category)) > 1
+
+# check if 'Num_endorsements' is number
+is.numeric(simulated_data$Num_Endorsements) == TRUE
+  
