@@ -9,14 +9,12 @@
 
 #### Workspace setup ####
 library(tidyverse)
-# [...UPDATE THIS...]
-set.seed(123)
+set.seed(1003380888)
 
 #### Simulate data ####
 
 num_records <- 100
 
-# Add more categories if needed
 categories <- sample(c("HOLISTIC CENTRE", "RETAIL STORE (FOOD)", 
                        "TAXICAB BROKER", 
                        "PLACE OF AMUSEMENT"), num_records, replace = TRUE)

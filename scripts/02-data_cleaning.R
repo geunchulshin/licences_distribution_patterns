@@ -41,6 +41,8 @@ cleaned_data <- raw_data %>% select(-one_of(sel_col_remove)) %>%
                                               units = "days") / 30.44)
 )
 
+### Removing unrelated columns ###
+
 cleaned_data$Endorsements <- NULL
 cleaned_data$`Operating Name` <- NULL
 cleaned_data$Issued <- NULL
@@ -52,4 +54,5 @@ cleaned_data$`Cancel_month` <- NULL
 cleaned_data$`Cancel_year` <- NULL
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/cleaned_data.csv")
+write_csv(cleaned_data, file= "inputs/data/cleaned_data.csv")
+
