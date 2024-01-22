@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
+# Purpose: Cleans the data for later usage (mutating and adjusting classes)
 # Author: Geunchul Shin
 # Date: January 21 2024
 # Contact: joey.shin@mail.utoronto.ca

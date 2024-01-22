@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from Open Data Toronto
 # Author: Geunchul Shin
 # Date: January 21 2024
 # Contact: joey.shin@mail.utoronto.ca
