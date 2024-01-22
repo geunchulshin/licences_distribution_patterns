@@ -1,10 +1,8 @@
 ---
 title: "Is there any change in licences distribution pattern during 2015-2018 and 2019-2022?"
 subtitle: "An analysis of business licences and permit issued by the Toronto Municipal Licensing and Standards."
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+author: "Geunchul Shin"
+thanks: "Code and data are available at: https://github.com/geunchulshin/licences_distribution_patterns"
 date: today
 toc: true
 date-format: long
@@ -21,6 +19,7 @@ bibliography: references.bib
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(here)
 library(ggplot2)
 ```
 
@@ -56,7 +55,7 @@ In the data cleaning process, several steps were undertaken to refine and prepar
 #| tbl-cap: "Sample of cleaned Municipal Licensing & Standards data set (Issue Duration in Months)"
 #| layout-ncol: 1
 
-cleaned_data <- read_csv("../data/cleaned_data.csv")
+cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 cleaned_data <- as.data.frame(cleaned_data)
 res <- head(cleaned_data)
 colnames(res) <- c('Category', 'Num Endorsements', 'Issued year', 'Issue duration')
@@ -71,7 +70,7 @@ kable(res)
 #| tbl-cap: "Licenses issued during all years"
 #| layout-ncol: 1
 
-cleaned_data <- read_csv("../data/cleaned_data.csv")
+cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 df1 <- as.data.frame(prop.table(table(cleaned_data$Category)))
 colnames(df1) <- c("Category", "Percentage(%)")
 df1$`Percentage(%)` <- df1$`Percentage(%)`*100
