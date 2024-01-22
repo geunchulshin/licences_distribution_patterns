@@ -10,7 +10,6 @@ abstract: "Municipal Licensing & Standards (ML&S) issues licences to various typ
 format: pdf
 number-sections: true
 bibliography: references.bib
-nocite: '@*'
 ---
 
 ```{r}
@@ -27,7 +26,7 @@ library(ggplot2)
 
 # Introduction
 
-To investigate the trends in the distribution of licences and permits across different categories, a thorough investigation was carried out for two different time periods: 2015–2018 and 2019–2022. The selection of the time periods, 2015-2018 and 2019-2022, was purposeful, taking into account the occurrence of municipal elections, which transpire every four years @toronto_election_data. This deliberate choice allows for a comprehensive exploration of licensing and permitting distribution patterns, considering the potential influence of electoral cycles on regulatory activities and administrative decision-making within the municipal landscape. The City of Toronto Council appoints seven citizens to the Tribunal, an autonomous quasi-judicial body, to serve four-year terms. The Court Services Division of the City of Toronto provides administrative support to the Tribunal. Unless otherwise specified, public hearings are held every Thursday. The Tribunal makes rulings free from commercial or political influence @toronto_tribunal.
+To investigate the trends in the distribution of licences and permits across different categories, a thorough investigation was carried out for two different time periods: 2015–2018 and 2019–2022. The selection of the time periods, 2015-2018 and 2019-2022, was purposeful, taking into account the occurrence of municipal elections, which transpire every four years [@toronto_election_data]. This deliberate choice allows for a comprehensive exploration of licensing and permitting distribution patterns, considering the potential influence of electoral cycles on regulatory activities and administrative decision-making within the municipal landscape. The City of Toronto Council appoints seven citizens to the Tribunal, an autonomous quasi-judicial body, to serve four-year terms. The Court Services Division of the City of Toronto provides administrative support to the Tribunal. Unless otherwise specified, public hearings are held every Thursday. The Tribunal makes rulings free from commercial or political influence [@toronto_tribunal].
 
 When comparing these pattern, it is being considered that there are numerous factors, including both legislative and larger social-economic dynamics, 
 that plays a role in licencing choices. Those factors could be related to regulatory 
@@ -35,7 +34,7 @@ compliance, public safety and welfare, applicant qualification, land use and zon
 economic impact, environmental considerations, social and political priorities. Hence, the difference in the pattern could be because of those influential factors, that leads to 
 change in the policy decisions. 
 
-There are some categories for which most applications are received for permits and licenses. Building permits are for construction, film permits for making movies, lottery licenses for charitable events, marriage licenses for weddings, and taxi licenses for driving taxis @toronto_open_data. These permits help ensure things are done safely and responsibly, making sure activities like building, filming, fundraising, getting married, or driving taxis follow the rules that keep everyone safe and organized in the community.
+There are some categories for which most applications are received for permits and licenses. Building permits are for construction, film permits for making movies, lottery licenses for charitable events, marriage licenses for weddings, and taxi licenses for driving taxis [@toronto_open_data]. These permits help ensure things are done safely and responsibly, making sure activities like building, filming, fundraising, getting married, or driving taxis follow the rules that keep everyone safe and organized in the community.
 
 The purpose of this paper is to identify if there are any significant changes or trends in the number of licences and permits issued in various categories during last two terms by municiple administrator. The remainder of this paper is structured as follows. @sec-data elaborate about
 the data-set used for the analysis. @sec-result shows the result of the analysis. 
@@ -45,7 +44,7 @@ concludes the analysis i.e. the findings of this paper.
 
 # Data {#sec-data}
 
-The data set used in this analysis is obtained from the City of Toronto’s Open-Data Toronto Library @citeOpenData. The data set is entitle with the name "Municipal Licensing and Standards - Business Licences and Permits" @toronto_open_data. Along with that the following packages are also used, ggplot2 for plotting @citeGGPlot, tidyverse for data frame manipulation @citeTidyverse, knitr for pdf rendering @citeKnitr and kableExtra for styling tables @citekableExtra. 
+The data set used in this analysis is obtained from the City of Toronto’s Open-Data Toronto Library [@citeOpenData]. The data set is entitle with the name "Municipal Licensing and Standards - Business Licences and Permits" [@toronto_open_data]. Data was collected and analyzed with the utilization of the programming software [@citer]. Along with that the following packages are also used, ggplot2 for plotting [@citeGGPlot], tidyverse for data frame manipulation @citeTidyverse, knitr for pdf rendering [@citeKnitr] and kableExtra for styling tables [@citekableExtra]. 
 
 The raw data set contains 32000 observations each having 18 features. However, for the analysis I only require a few of the features. The data set is cleaned by removing the unnecessary features. I also performed feature engineering to generate a couple of features. These will be discussed further in detail. A sample of cleaned data set is shown here @tbl-sampledata.
 
