@@ -113,12 +113,3 @@ g7 <- ggplot(df_combined_num_exp, aes(x = Category,
        x = "Category", y = "Average Number of Endorsements") +
   theme_minimal() + coord_flip()
 print(g7)
-
-# 
-# g8 <- ggplot(df_combined, aes(x = Category, 
-#                               y = Num_Endorsements, fill=Term)) +
-#   geom_boxplot() +
-#   labs(title = "Percentage Distribution by Category", 
-#        x = "Category", y = "Average Licence Duration (months)") +
-#   theme_minimal() + coord_flip()
-# print(g8)
