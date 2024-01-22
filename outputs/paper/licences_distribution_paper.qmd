@@ -199,6 +199,7 @@ g7 <- ggplot(df_combined_num_exp, aes(x = Category,
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Average Number of Endorsements \nfor which license was given \nby each category in both term", 
        x = "Category", y = "Average Number of Endorsements") +
+  scale_fill_manual(values = c('2015-2018'='red','2019-2022'='blue'))+
   theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g7)
