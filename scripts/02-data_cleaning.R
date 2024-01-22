@@ -42,7 +42,6 @@ cleaned_data <- raw_data %>% select(-one_of(sel_col_remove)) %>%
 )
 
 ### Removing unrelated columns ###
-
 cleaned_data$Endorsements <- NULL
 cleaned_data$`Operating Name` <- NULL
 cleaned_data$Issued <- NULL
