@@ -6,7 +6,7 @@ thanks: "Code and data are available at: https://github.com/geunchulshin/licence
 date: today
 toc: true
 date-format: long
-abstract: "Municipal Licensing & Standards (ML&S) issues licences to various type of businesses and trades in Toronto city. This licence dataset is used for the analysis to access if there is any discrimination in issuing licences to various categories or not. The data set is analysed and compared for the period of 2015-2018 and 2019-2022. Evidently, certain categories have licence durations that differ greatly from one another. For example, categories were granted licences for longer periods of time during the 2015–2018 period than they were during the latter period."
+abstract: "Municipal Licensing & Standards (ML&S) issues licences to various types of businesses and trades in Toronto City. This licence dataset is used for the analysis to assess if there is any discrimination in issuing licences to various categories or not. The data set is analyzed and compared for the period of 2015-2018 and 2019-2022. Evidently, certain categories have licence durations that differ greatly from one another. For example, categories were granted licences for longer periods of time during the 2015–2018 period than they were during the latter period."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -26,40 +26,36 @@ library(ggplot2)
 
 # Introduction
 
-To investigate the trends in the distribution of licences and permits across different categories, a thorough investigation was carried out for two different time periods: 2015–2018 and 2019–2022. The selection of the time periods, 2015-2018 and 2019-2022, was purposeful, taking into account the occurrence of municipal elections, which transpire every four years [@toronto_election_data]. This deliberate choice allows for a comprehensive exploration of licensing and permitting distribution patterns, considering the potential influence of electoral cycles on regulatory activities and administrative decision-making within the municipal landscape. The City of Toronto Council appoints seven citizens to the Tribunal, an autonomous quasi-judicial body, to serve four-year terms. The Court Services Division of the City of Toronto provides administrative support to the Tribunal. Unless otherwise specified, public hearings are held every Thursday. The Tribunal makes rulings free from commercial or political influence [@toronto_tribunal].
+To investigate the trends in the distribution of licences and permits across different categories, a thorough investigation was carried out for two different time periods: 2015–2018 and 2019–2022. The selection of the time periods, 2015-2018 and 2019-2022 was purposeful, taking into account the occurrence of municipal elections, which transpire every four years [@toronto_election_data]. This deliberate choice allows for a comprehensive exploration of licensing and permitting distribution patterns, considering the potential influence of electoral cycles on regulatory activities and administrative decision-making within the municipal landscape. The City of Toronto Council appoints seven citizens to the Tribunal, an autonomous quasi-judicial body, to serve four-year terms. The Court Services Division of the City of Toronto provides administrative support to the Tribunal. Unless otherwise specified, public hearings are held every Thursday. The Tribunal makes rulings free from commercial or political influence [@toronto_tribunal].
 
-When comparing these pattern, it is being considered that there are numerous factors, including both legislative and larger social-economic dynamics, 
-that plays a role in licencing choices. Those factors could be related to regulatory 
-compliance, public safety and welfare, applicant qualification, land use and zoning, 
-economic impact, environmental considerations, social and political priorities. Hence, the difference in the pattern could be because of those influential factors, that leads to 
+When comparing these patterns, it is being considered that there are numerous factors, including both legislative and larger social-economic dynamics, that play a role in licencing choices. Those factors could be related to regulatory compliance, public safety and welfare, applicant qualification, land use and zoning, economic impact, environmental considerations, and social/political priorities. Hence, the difference in the pattern could be because of those influential factors, that leads to 
 change in the policy decisions. 
 
 There are some categories for which most applications are received for permits and licenses. Building permits are for construction, film permits for making movies, lottery licenses for charitable events, marriage licenses for weddings, and taxi licenses for driving taxis [@toronto_open_data]. These permits help ensure things are done safely and responsibly, making sure activities like building, filming, fundraising, getting married, or driving taxis follow the rules that keep everyone safe and organized in the community.
 
-The purpose of this paper is to identify if there are any significant changes or trends in the number of licences and permits issued in various categories during last two terms by municiple administrator. The remainder of this paper is structured as follows. @sec-data elaborate about
-the data-set used for the analysis. @sec-result shows the result of the analysis. 
-@sec-discussion explains and discusses the results in details. @sec-conclusion
-concludes the analysis i.e. the findings of this paper.
+The purpose of this paper is to identify if there are any significant changes or trends in the number of licences and permits issued in various categories during the last two terms by municipal administrators. The remainder of this paper is structured as follows. @sec-data elaborate on the data-set used for the analysis. @sec-result shows the result of the analysis. @sec-discussion explains and discusses the results in detail. @sec-conclusion concludes the analysis: the findings of this paper.
 
 
 # Data {#sec-data}
 
-The data set used in this analysis is obtained from the City of Toronto’s Open-Data Toronto Library [@citeOpenData]. The data set is entitle with the name "Municipal Licensing and Standards - Business Licences and Permits" [@toronto_open_data]. Data was collected and analyzed with the utilization of the programming software [@citer]. Along with that the following packages are also used, ggplot2 for plotting [@citeGGPlot], tidyverse for data frame manipulation @citeTidyverse, knitr for pdf rendering [@citeKnitr] and kableExtra for styling tables [@citekableExtra]. 
+The data set used in this analysis is obtained from the City of Toronto’s Open-Data Toronto Library [@citeOpenData]. The data set is entitled with the name "Municipal Licensing and Standards - Business Licences and Permits" [@toronto_open_data]. Data was collected and analyzed with the utilization of the programming software, R Studio [@citer]. Along with that, the following packages are also used, ggplot2 for plotting [@citeGGPlot], tidyverse for data frame manipulation @citeTidyverse, knitr for pdf rendering [@citeKnitr] and kableExtra for styling tables [@citekableExtra]. 
 
-The raw data set contains 32000 observations each having 18 features. However, for the analysis I only require a few of the features. The data set is cleaned by removing the unnecessary features. I also performed feature engineering to generate a couple of features. These will be discussed further in detail. A sample of cleaned data set is shown here @tbl-sampledata.
+The raw data set contains 32000 observations each having 18 features. However, for the analysis, only a few of the features are needed. The data set is cleaned by removing the unnecessary variables  Also feature engineering is performed to generate a couple of variables These will be discussed further in detail. A sample of the cleaned data set is shown here @tbl-sampledata.
 
 In the data cleaning process, several steps were undertaken to refine and prepare the dataset for analysis. Initially, a set of specific columns deemed unnecessary for the analysis, such as "_id," "Licence No.," and others related to contact details and record updates, were identified and removed. Additionally, to enhance clarity and ease of analysis, columns containing text-based information, such as "Conditions" and "Endorsements," underwent processing. A custom function was applied to calculate the number of words in each entry of the "Endorsements" column. Furthermore, date-related columns such as Issue_date and Cancel_date were modified to extract the year and month of issuance and cancellation, and a new column, "Issue_duration," was created to represent the duration between issuance and cancellation in months. Finally, several columns containing redundant or sensitive information were dropped to streamline the dataset for subsequent analysis. These meticulous data cleaning steps ensure a more focused, structured, and standardized dataset, laying the foundation for the subsequent stages.
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
 #| label: tbl-sampledata
 #| tbl-cap: "Sample of cleaned Municipal Licensing & Standards data set (Issue Duration in Months)"
-#| layout-ncol: 1
 
 cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 cleaned_data <- as.data.frame(cleaned_data)
 res <- head(cleaned_data)
 colnames(res) <- c('Category', 'Num Endorsements', 'Issued year', 'Issue duration')
-kable(res)
+kable(res) 
 ```
 
 ```{r}
@@ -68,21 +64,14 @@ kable(res)
 #| message: false
 #| label: tbl-catall
 #| tbl-cap: "Licenses issued during all years"
-#| layout-ncol: 1
 
 cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 df1 <- as.data.frame(prop.table(table(cleaned_data$Category)))
 colnames(df1) <- c("Category", "Percentage(%)")
 df1$`Percentage(%)` <- df1$`Percentage(%)`*100
-result <- kable(df1) |> kable_classic(full_width = FALSE)
+result <- kable(df1) 
 result
 ```
-
-As the data-set contains data when licenses issues during 1969 to 2024. It is
-worth to consider the entire data set as the population data, which can be 
-useful during statistical analysis. The table shows category wise percentage of
-licenses issued during this period. The overall distribution is shown here @tbl-catall.
-
 
 ```{r}
 #| echo: false
@@ -90,33 +79,37 @@ licenses issued during this period. The overall distribution is shown here @tbl-
 #| message: false
 #| label: tbl-term1
 #| tbl-cap: "Licenses issued during 2015-2018"
-#| layout-ncol: 2
 
 df_2015_2018 <- cleaned_data %>% filter(Issued_year %in% seq(2015, 2018))
 df2 <- as.data.frame(prop.table(table(df_2015_2018$Category)))
 colnames(df2) <- c("Category", "Percentage(%)")
 df2$`Percentage(%)` <- df2$`Percentage(%)`*100
-result <- kable(df2) |> kable_classic(full_width = FALSE)
-result
+result <- kable(df2) 
+result 
 ```
 
-```{r}
+```{r, results='asis'}
 #| echo: false
 #| warning: false
 #| message: false
 #| label: tbl-term2
 #| tbl-cap: "Licenses issued during 2019-2022"
-#| layout-ncol: 2
 
 df_2019_2022 <- cleaned_data %>% filter(Issued_year %in% seq(2019, 2022))
 df3 <- as.data.frame(prop.table(table(df_2019_2022$Category)))
 colnames(df3) <- c("Category", "Percentage(%)")
 df3$`Percentage(%)` <- df3$`Percentage(%)`*100
-result <- kable(df3) |> kable_classic(full_width = FALSE)
-result
+result <- kable(df3) 
+result 
 ```
 
+As the data-set contains data when licenses issues during 1969 to 2024. It is
+worth to consider the entire data set as the population data, which can be 
+useful during statistical analysis. The table shows category wise percentage of
+licenses issued during this period. The overall distribution is shown here @tbl-catall. Additionally, tables @tbl-term1 and @tbl-term2 provide insights on specific intervals offering more in dept view of the data (2015-2018 and 2019-2022 respectively). 
+
 # Results {#sec-result}
+
 
 The analysis of licenses issued during the periods 2015-2018 @tbl-term1 and 2019-2022 @tbl-term2 reveals dynamic patterns in the distribution across various categories. In the earlier period, "Retail Store (Food)" dominated the licensing landscape with an overwhelming 84.77%, while categories like "Holistic Centre" and "Driving School Operator (B)" also made significant contributions. In the subsequent period, "Retail Store (Food)" maintained its prominence, now constituting 87.69% of licenses issued. Categories like "Holistic Centre" and "Driving School Operator (B)" exhibited notable growth, reflecting evolving trends. Additionally, new categories, including "Short Term Rental Company" and "Taxicab Operator," emerged in the later period. These shifts highlight the dynamic nature of licensing activities, providing valuable insights for stakeholders and policymakers into the evolving business landscape in the municipality.
 
@@ -126,40 +119,41 @@ The analysis of licenses issued during the periods 2015-2018 @tbl-term1 and 2019
 #| eval: true
 #| warning: false
 #| message: false
-#| label: fig-plots_both
-#| fig-cap: "Category wise average licence duration (Months)" 
+#| label: fig-plots_1
+#| fig-pos: "H"
+#| fig-cap: "Category wise average licence duration (Months) \nfor reference" 
 #| fig-subcap:
 #|   - "During (2015-2018)"
 #|   - "During (2019-2022)" 
 #| layout-ncol: 2
 
-df_2015_2018_duration <- df_2015_2018 %>% group_by(Category) %>% summarise(mean(Issue_duration, na.rm = T))
+df_2015_2018_duration <- df_2015_2018 %>% group_by(Category) %>% summarise(mean(Issue_duration, na.rm = TRUE))
 colnames(df_2015_2018_duration) <- c("Category", "AverageDuration")
 df_2015_2018_duration <- df_2015_2018_duration %>% arrange(desc(AverageDuration)) %>% drop_na()
 
-df_2019_2022_duration <- df_2019_2022 %>% group_by(Category) %>% summarise(mean(Issue_duration, na.rm = T))
+df_2019_2022_duration <- df_2019_2022 %>% group_by(Category) %>% summarise(mean(Issue_duration, na.rm = TRUE))
 colnames(df_2019_2022_duration) <- c("Category", "AverageDuration")
 df_2019_2022_duration <- df_2019_2022_duration %>% arrange(desc(AverageDuration)) %>% drop_na()
 
-
 g1 <- ggplot(df_2015_2018_duration, aes(x = reorder(Category, AverageDuration), y = AverageDuration)) +
   geom_bar(stat = "identity") +
-  labs(title = "Category wise average licence duration during (2015-2018)", 
+  labs(title = "Category wise average \nlicence duration \nduring (2015-2018)", 
        x = "Category", y = "Average Licence Duration (months)") +
-  theme(panel.grid = element_blank(), 
+  theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g1)
 
 g2 <- ggplot(df_2019_2022_duration, aes(x = reorder(Category, AverageDuration), y = AverageDuration)) +
   geom_bar(stat = "identity") +
-  labs(title = "Category wise average licence duration during (2019-2022)", 
+  labs(title = "Category wise average \nlicence duration \nduring (2019-2022)", 
        x = "Category", y = "Average Licence Duration (months)") +
-  theme(panel.grid = element_blank(), 
+  theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g2)
+
 ```
 
-Notably, in the earlier period @fig-box_plot_combined, the categories with the longest average duration include "Temporary Sign Provider" (82.0 months), "Taxicab Broker" (44.5 months), and "Private Transportation Company" (44.0 months). Conversely, in the subsequent period (2019-2022), categories such as "Body Rub Parlour" (48.5 months), "Circus" (35.5 months), and "Private Parking Enforcement Agency" (23.8 months) exhibit relatively higher average durations. Interestingly, some categories, like "Adult Entertainment Club" and "Short Term Rental Company," have missing values (NaN) in the 2019-2022 period. The comparison highlights variations in the average durations of licenses across different categories between the two specified time periods, suggesting potential shifts or trends in licensing dynamics over time.
+Notably, in the earlier period @fig-plots_combined, the categories with the longest average duration include "Temporary Sign Provider" (82.0 months), "Taxicab Broker" (44.5 months), and "Private Transportation Company" (44.0 months). Conversely, in the subsequent period (2019-2022), categories such as "Body Rub Parlour" (48.5 months), "Circus" (35.5 months), and "Private Parking Enforcement Agency" (23.8 months) exhibit relatively higher average durations. Interestingly, some categories, like "Adult Entertainment Club" and "Short Term Rental Company," have missing values (NaN) in the 2019-2022 period. The comparison highlights variations in the average durations of licenses across different categories between the two specified time periods, suggesting potential shifts or trends in licensing dynamics over time.
 
 ```{r}
 #| echo: false
@@ -167,44 +161,26 @@ Notably, in the earlier period @fig-box_plot_combined, the categories with the l
 #| warning: false
 #| message: false
 #| label: fig-plots_combined
+#| fig-pos: "H"
 #| fig-cap: "Category wise average licence duration (Months)" 
-#| layout-ncol: 1
 
 df_2015_2018$Term <- "2015-2018"
 df_2019_2022$Term <- "2019-2022"
 df_combined <- rbind(df_2015_2018, df_2019_2022)
-df_combined_duration <- df_combined %>% group_by(Term, Category) %>% summarise(mean(Issue_duration, na.rm = T))
+df_combined_duration <- df_combined %>% group_by(Term, Category) %>% summarise(mean(Issue_duration, na.rm = TRUE))
 colnames(df_combined_duration) <- c("Term", "Category", "AverageDuration")
 
 g5 <- ggplot(df_combined_duration, aes(x = Category, 
                                        y = AverageDuration, fill=Term)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Average Licence Duration given to each 
-       Category, group by comparison", 
+  labs(title = "Average Licence Duration \ngiven to each Category, \ngroup by comparison", 
        x = "Category", y = "Average Licence Duration (months)") +
-  theme(panel.grid = element_blank(), 
+  theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g5)
 ```
 
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-#| label: fig-box_plot_combined
-#| fig-cap: "Category wise average licence duration (Months)" 
-#| layout-ncol: 1
-
-g6 <- ggplot(df_combined, aes(x = Category, 
-                                       y = Issue_duration, fill=Term)) +
-  geom_boxplot() +
-  labs(title = "Licence Duration given to each 
-       Category, group wise comparison", 
-       x = "Category", y = "Average Licence Duration (months)") +
-  theme_minimal() + coord_flip()
-print(g6)
-```
+Examining the data set focusing on the Average Number of Endorsements @fig-plots_combined_endors, it provides insights into the endorsements frequency for various categories during the periods 2015-2018 and 2019-2022. In the earlier period, categories such as "ADULT ENTERTAINMENT CLUB" and "BILLIARD HALL" have relatively low average endorsements numbers, with values of 3 and 2.2, respectively. The category "TEMPORARY SIGN PROVIDER" had the highest average number of endorsements (1) in the 2015-2018 period. In the subsequent period (2019-2022), the pattern shifts, with "ADULT ENTERTAINMENT CLUB" and "BILLIARD HALL" experiencing an increase in average endorsements numbers (2 and 1.9, respectively).
 
 ```{r}
 #| echo: false
@@ -212,23 +188,20 @@ print(g6)
 #| warning: false
 #| message: false
 #| label: fig-plots_combined_endors
+#| fig-pos: "H"
 #| fig-cap: "Category wise average number of endorsements" 
-#| layout-ncol: 1
 
-df_combined_num_exp <- df_combined %>% group_by(Term, Category) %>% summarise(mean(Num_Endorsements, na.rm = T))
+df_combined_num_exp <- df_combined %>% group_by(Term, Category) %>% summarise(mean(Num_Endorsements, na.rm = TRUE))
 colnames(df_combined_num_exp) <- c("Term", "Category", "AverageNumExp")
 g7 <- ggplot(df_combined_num_exp, aes(x = Category, 
                                        y = AverageNumExp, fill=Term)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Average Number of Endorsements for which license was given by
-  each category in both term", 
+  labs(title = "Average Number of Endorsements \nfor which license was given \nby each category in both term", 
        x = "Category", y = "Average Number of Endorsements") +
-  theme(panel.grid = element_blank(), 
+  theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g7)
 ```
-
-Examining the data set focusing on the Average Number of Endorsements @fig-plots_combined_endors, it provides insights into the endorsements frequency for various categories during the periods 2015-2018 and 2019-2022. In the earlier period, categories such as "ADULT ENTERTAINMENT CLUB" and "BILLIARD HALL" have relatively low average endorsements numbers, with values of 3 and 2.2, respectively. The category "TEMPORARY SIGN PROVIDER" had the highest average number of endorsements (1) in the 2015-2018 period. In the subsequent period (2019-2022), the pattern shifts, with "ADULT ENTERTAINMENT CLUB" and "BILLIARD HALL" experiencing an increase in average endorsements numbers (2 and 1.9, respectively).
 
 Comparing both datasets, it appears that certain categories, such as "DRIVE-SELF RENTAL OWNER" and "PRIVATE TRANSPORTATION COMPANY," consistently have lower endorsements frequencies, reflecting potential operational trends or regulatory considerations. The variations in endorsements numbers between the two time periods underscore the dynamic nature of endorsements activities across different business categories, suggesting changes 
 in regulatory focus or industry dynamics over time.
