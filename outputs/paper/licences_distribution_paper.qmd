@@ -10,6 +10,7 @@ abstract: "Municipal Licensing & Standards (ML&S) issues licences to various typ
 format: pdf
 number-sections: true
 bibliography: references.bib
+nocite: '@*'
 ---
 
 ```{r}
