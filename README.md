@@ -20,5 +20,5 @@ o `scripts` Includes the R scripts utilized for data simulation, downloading and
 2. Run `scripts/02-data_cleaning.R` to clean data and generate cleaned data
 3. Run `outputs/paper/licences_distribution_paper.qmd` to create the PDF version of the paper
 
-##Statement on LLM usage:
+## Statement on LLM usage:
 There was no LLM usage to write this paper.
