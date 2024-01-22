@@ -1,11 +1,10 @@
 #### Preamble ####
 # Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Author: Geunchul Shin
+# Date: January 21 2024
+# Contact: joey.shin@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: 02-data_cleaning.R
 
 
 #### Workspace setup ####
