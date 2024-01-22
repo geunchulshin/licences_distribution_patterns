@@ -136,7 +136,7 @@ colnames(df_2019_2022_duration) <- c("Category", "AverageDuration")
 df_2019_2022_duration <- df_2019_2022_duration %>% arrange(desc(AverageDuration)) %>% drop_na()
 
 g1 <- ggplot(df_2015_2018_duration, aes(x = reorder(Category, AverageDuration), y = AverageDuration)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill ="red") +
   labs(title = "Category wise average \nlicence duration \nduring (2015-2018)", 
        x = "Category", y = "Average Licence Duration (months)") +
   theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
@@ -144,7 +144,7 @@ g1 <- ggplot(df_2015_2018_duration, aes(x = reorder(Category, AverageDuration), 
 print(g1)
 
 g2 <- ggplot(df_2019_2022_duration, aes(x = reorder(Category, AverageDuration), y = AverageDuration)) +
-  geom_bar(stat = "identity") +
+  geom_bar(stat = "identity", fill ="blue") +
   labs(title = "Category wise average \nlicence duration \nduring (2019-2022)", 
        x = "Category", y = "Average Licence Duration (months)") +
   theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
@@ -175,6 +175,7 @@ g5 <- ggplot(df_combined_duration, aes(x = Category,
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Average Licence Duration \ngiven to each Category, \ngroup by comparison", 
        x = "Category", y = "Average Licence Duration (months)") +
+  scale_fill_manual(values = c('2015-2018'='red','2019-2022'='blue'))+
   theme(plot.title = element_text(hjust = 0.5), panel.grid = element_blank(), 
         panel.background = element_rect(fill = "white")) + coord_flip()
 print(g5)
