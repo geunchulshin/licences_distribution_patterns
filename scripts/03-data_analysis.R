@@ -9,10 +9,9 @@
 
 #### Workspace setup ####
 library(tidyverse)
-# [...UPDATE THIS...]
 
 #### Test data ####
-cleaned_data <- read_csv("outputs/data/cleaned_data.csv")
+cleaned_data <- read_csv("inputs/data/cleaned_data.csv")
 
 head(cleaned_data)
 
