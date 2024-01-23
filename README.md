@@ -16,7 +16,7 @@ PDF.
 o `scripts` Includes the R scripts utilized for data simulation, downloading and cleaning.
 
 ## How to Run
-
+0. For simulation and testing, run `scripts/00-simulate_data.R`
 1. Run `scripts/01-download_data.R` to download raw data
 2. Run `scripts/02-data_cleaning.R` to clean data and generate cleaned data
 3. Run `outputs/paper/licences_distribution_paper.qmd` to create the PDF version of the paper
