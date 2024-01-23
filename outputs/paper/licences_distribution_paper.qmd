@@ -42,34 +42,37 @@ The data set used in this analysis is obtained from the City of Toronto’s Open
 
 The raw data set contains 32000 observations each having 18 features. However, for the analysis, only a few of the features are needed. The data set is cleaned by removing the unnecessary variables  Also feature engineering is performed to generate a couple of variables These will be discussed further in detail. A sample of the cleaned data set is shown here @tbl-sampledata.
 
-In the data cleaning process, several steps were undertaken to refine and prepare the dataset for analysis. Initially, a set of specific columns deemed unnecessary for the analysis, such as "_id," "Licence No.," and others related to contact details and record updates, were identified and removed. Additionally, to enhance clarity and ease of analysis, columns containing text-based information, such as "Conditions" and "Endorsements," underwent processing. A custom function was applied to calculate the number of words in each entry of the "Endorsements" column. Furthermore, date-related columns such as Issue_date and Cancel_date were modified to extract the year and month of issuance and cancellation, and a new column, "Issue_duration," was created to represent the duration between issuance and cancellation in months. Finally, several columns containing redundant or sensitive information were dropped to streamline the dataset for subsequent analysis. These meticulous data cleaning steps ensure a more focused, structured, and standardized dataset, laying the foundation for the subsequent stages.
-
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| label: tbl-sampledata
+#| fig-pos: "H"
 #| tbl-cap: "Sample of cleaned Municipal Licensing & Standards data set (Issue Duration in Months)"
 
 cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 cleaned_data <- as.data.frame(cleaned_data)
 res <- head(cleaned_data)
 colnames(res) <- c('Category', 'Num Endorsements', 'Issued year', 'Issue duration')
-kable(res) 
+kable(res, format = "latex") |> kable_styling(latex_options="scale_down")
 ```
+
+In the data cleaning process, several steps were undertaken to refine and prepare the dataset for analysis. Initially, a set of specific columns deemed unnecessary for the analysis, such as "_id," "Licence No.," and others related to contact details and record updates, were identified and removed. Additionally, to enhance clarity and ease of analysis, columns containing text-based information, such as "Conditions" and "Endorsements," underwent processing. A custom function was applied to calculate the number of words in each entry of the "Endorsements" column. Furthermore, date-related columns such as Issue_date and Cancel_date were modified to extract the year and month of issuance and cancellation, and a new column, "Issue_duration," was created to represent the duration between issuance and cancellation in months. Finally, several columns containing redundant or sensitive information were dropped to streamline the dataset for subsequent analysis. These meticulous data cleaning steps ensure a more focused, structured, and standardized dataset, laying the foundation for the subsequent stages.
+
 
 ```{r}
 #| echo: false
 #| warning: false
 #| message: false
 #| label: tbl-catall
+#| fig-pos: "H"
 #| tbl-cap: "Licenses issued during all years"
 
 cleaned_data <- read_csv(file = here("inputs/data/cleaned_data.csv"))
 df1 <- as.data.frame(prop.table(table(cleaned_data$Category)))
 colnames(df1) <- c("Category", "Percentage(%)")
 df1$`Percentage(%)` <- df1$`Percentage(%)`*100
-result <- kable(df1) 
+result <- kable(df1) |> kable_styling(latex_options="scale_down") 
 result
 ```
 
@@ -77,41 +80,40 @@ result
 #| echo: false
 #| warning: false
 #| message: false
-#| label: tbl-term1
-#| tbl-cap: "Licenses issued during 2015-2018"
+#| label: tbl-merged
+#| fig-pos: "H"
+#| tbl-cap: "Licenses issued during 2015-2018 and 2019-2022"
 
 df_2015_2018 <- cleaned_data %>% filter(Issued_year %in% seq(2015, 2018))
 df2 <- as.data.frame(prop.table(table(df_2015_2018$Category)))
 colnames(df2) <- c("Category", "Percentage(%)")
 df2$`Percentage(%)` <- df2$`Percentage(%)`*100
 result <- kable(df2) 
-result 
-```
-
-```{r, results='asis'}
-#| echo: false
-#| warning: false
-#| message: false
-#| label: tbl-term2
-#| tbl-cap: "Licenses issued during 2019-2022"
 
 df_2019_2022 <- cleaned_data %>% filter(Issued_year %in% seq(2019, 2022))
 df3 <- as.data.frame(prop.table(table(df_2019_2022$Category)))
 colnames(df3) <- c("Category", "Percentage(%)")
 df3$`Percentage(%)` <- df3$`Percentage(%)`*100
-result <- kable(df3) 
-result 
+result2 <- kable(df3) 
+
+combined_df <- full_join(df2, df3, by = "Category")
+colnames(combined_df) <- c("Category", "Percentage(%)\n[2015-2018]", "Percentage(%)\n[2019-2022]")
+kable(combined_df) |> kable_styling(latex_options="scale_down") 
 ```
+
+\newpage
 
 As the data-set contains data when licenses issues during 1969 to 2024. It is
 worth to consider the entire data set as the population data, which can be 
 useful during statistical analysis. The table shows category wise percentage of
-licenses issued during this period. The overall distribution is shown here @tbl-catall. Additionally, tables @tbl-term1 and @tbl-term2 provide insights on specific intervals offering more in dept view of the data (2015-2018 and 2019-2022 respectively). 
+licenses issued during this period. The overall distribution is shown here @tbl-catall. Additionally, tables in @tbl-merged provide insights on specific intervals offering more in dept view of the data (2015-2018 and 2019-2022 respectively). 
+
+
 
 # Results {#sec-result}
 
 
-The analysis of licenses issued during the periods 2015-2018 @tbl-term1 and 2019-2022 @tbl-term2 reveals dynamic patterns in the distribution across various categories. In the earlier period, "Retail Store (Food)" dominated the licensing landscape with an overwhelming 84.77%, while categories like "Holistic Centre" and "Driving School Operator (B)" also made significant contributions. In the subsequent period, "Retail Store (Food)" maintained its prominence, now constituting 87.69% of licenses issued. Categories like "Holistic Centre" and "Driving School Operator (B)" exhibited notable growth, reflecting evolving trends. Additionally, new categories, including "Short Term Rental Company" and "Taxicab Operator," emerged in the later period. These shifts highlight the dynamic nature of licensing activities, providing valuable insights for stakeholders and policymakers into the evolving business landscape in the municipality.
+The analysis of licenses issued during the periods 2015-2018 and 2019-2022 @tbl-merged reveals dynamic patterns in the distribution across various categories. In the earlier period, "Retail Store (Food)" dominated the licensing landscape with an overwhelming 84.77%, while categories like "Holistic Centre" and "Driving School Operator (B)" also made significant contributions. In the subsequent period, "Retail Store (Food)" maintained its prominence, now constituting 87.69% of licenses issued. Categories like "Holistic Centre" and "Driving School Operator (B)" exhibited notable growth, reflecting evolving trends. Additionally, new categories, including "Short Term Rental Company" and "Taxicab Operator," emerged in the later period. These shifts highlight the dynamic nature of licensing activities, providing valuable insights for stakeholders and policymakers into the evolving business landscape in the municipality.
 
 
 ```{r}
@@ -160,8 +162,8 @@ Notably, in the earlier period @fig-plots_combined, the categories with the long
 #| eval: true
 #| warning: false
 #| message: false
-#| label: fig-plots_combined
 #| fig-pos: "H"
+#| label: fig-plots_combined
 #| fig-cap: "Category wise average licence duration (Months)" 
 
 df_2015_2018$Term <- "2015-2018"
@@ -188,8 +190,8 @@ Examining the data set focusing on the Average Number of Endorsements @fig-plots
 #| eval: true
 #| warning: false
 #| message: false
-#| label: fig-plots_combined_endors
 #| fig-pos: "H"
+#| label: fig-plots_combined_endors
 #| fig-cap: "Category wise average number of endorsements" 
 
 df_combined_num_exp <- df_combined %>% group_by(Term, Category) %>% summarise(mean(Num_Endorsements, na.rm = TRUE))
